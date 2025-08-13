@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dilara Pak Sanat Akademi</title>
+    <title>Eğitim Yönetim Sistemi</title>
     <style>
         body {
             font-family: sans-serif;
@@ -170,17 +170,17 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1>Dilara Pak Sanat Akademi</h1>
+                <h1>Eğitim Yönetim Sistemi</h1>
             </div>
             <nav>
                 <ul>
-                    <li class="current"><a href="#anasayfa">Anasayfa</a></li>
-                    <li><a href="#ogrenciler">Öğrenciler</a></li>
-                    <li><a href="#ogretmenler">Öğretmenler</a></li>
-                    <li><a href="#dersler">Dersler</a></li>
-                    <li><a href="#branslar">Branşlar</a></li>
-                    <li><a href="#odemeler">Ödemeler</a></li>
-                    <li><a href="#hakedisler">Hakedişler</a></li>
+                    <li class="current"><a href="#anasayfa" id="nav-anasayfa">Anasayfa</a></li>
+                    <li><a href="#ogrenciler" id="nav-ogrenciler">Öğrenciler</a></li>
+                    <li><a href="#ogretmenler" id="nav-ogretmenler">Öğretmenler</a></li>
+                    <li><a href="#dersler" id="nav-dersler">Dersler</a></li>
+                    <li><a href="#branslar" id="nav-branslar">Branşlar</a></li>
+                    <li><a href="#odemeler" id="nav-odemeler">Ödemeler</a></li>
+                    <li><a href="#hakedisler" id="nav-hakedisler">Hakedişler</a></li>
                 </ul>
             </nav>
         </div>
@@ -490,12 +490,20 @@
             let odemeler = [];
             let hakedisler = [];
 
+            // Uygulama şifresi
+            const ADMIN_PASSWORD = "1234";
+
             // Elementlere erişim
             const pages = document.querySelectorAll('.page-content');
             const navLinks = document.querySelectorAll('header a');
             
             // Modallar
             const modals = document.querySelectorAll('.modal');
+            const ogrenciEkleModal = document.getElementById('ogrenci-ekle-modal');
+            const ogretmenEkleModal = document.getElementById('ogretmen-ekle-modal');
+            const dersEkleModal = document.getElementById('ders-ekle-modal');
+            const bransEkleModal = document.getElementById('brans-ekle-modal');
+            const odemeEkleModal = document.getElementById('odeme-ekle-modal');
 
             // Formlar
             const ogrenciForm = document.getElementById('ogrenci-form');
@@ -563,13 +571,27 @@
             // Sayfalar arası geçiş
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    pages.forEach(page => page.style.display = 'none');
-                    document.querySelector(link.getAttribute('href')).style.display = 'block';
-                    // Her sayfa geçişinde liste güncellemelerini tekrar çalıştır
-                    updateAllLists();
+                    const targetPage = link.getAttribute('href');
+
+                    if (targetPage === '#odemeler' || targetPage === '#hakedisler') {
+                        e.preventDefault();
+                        const password = prompt("Bu sayfaya erişim için şifre giriniz:");
+                        if (password === ADMIN_PASSWORD) {
+                            showPage(targetPage);
+                        } else {
+                            alert("Yanlış şifre! Erişim reddedildi.");
+                        }
+                    } else {
+                        showPage(targetPage);
+                    }
                 });
             });
+
+            function showPage(target) {
+                pages.forEach(page => page.style.display = 'none');
+                document.querySelector(target).style.display = 'block';
+                updateAllLists();
+            }
 
             // Modal fonksiyonları
             window.openModal = function(modalId) {
@@ -637,7 +659,6 @@
                 anasayfaDersTable.innerHTML = '';
                 const today = new Date().toISOString().slice(0, 10);
                 
-                // Dersleri tarihe göre sırala ve sadece bugünden sonraki veya bugünkü 10 dersi al
                 const upcomingLessons = dersler
                     .filter(ders => ders.tarih >= today)
                     .sort((a, b) => {
@@ -1235,6 +1256,4 @@
         });
     </script>
 </body>
-
 </html>
-
