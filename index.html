@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dilara Pak Sanat Akademi</title>
+    <title>DİLARA PAK SANAT AKADEMİ</title>
     <style>
         body {
             font-family: sans-serif;
@@ -163,6 +163,9 @@
         .lesson-missed {
             background-color: #fff3cd;
         }
+        .lesson-teacher-missed {
+            background-color: #f8d7da;
+        }
     </style>
 </head>
 <body>
@@ -170,7 +173,7 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1>Dilara Pak Sanat Akademi</h1>
+                <h1>DİLARA PAK SANAT AKADEMİ</h1>
             </div>
             <nav>
                 <ul>
@@ -711,11 +714,20 @@
                         } else {
                             islemButonlari = ' - ';
                         }
+                    } else if (durum === 'ogretmen-gelmedi') {
+                        durumClass = 'lesson-teacher-missed';
+                        durumText = 'Öğretmen Gelmedi';
+                        if (isToday) {
+                            islemButonlari = `<button class="btn btn-yellow" onclick="setDersDurum(${ders.id}, 'bekleniyor')">Geri Al</button>`;
+                        } else {
+                            islemButonlari = ' - ';
+                        }
                     } else {
                         durumText = 'Bekleniyor';
                         if (isToday) {
                             islemButonlari = `<button class="btn btn-green" onclick="setDersDurum(${ders.id}, 'tamamlandı')">Ders Tamamlandı</button>
-                                            <button class="btn btn-red" onclick="setDersDurum(${ders.id}, 'gelmedi')">Öğrenci Gelmedi</button>`;
+                                            <button class="btn btn-red" onclick="setDersDurum(${ders.id}, 'gelmedi')">Öğrenci Gelmedi</button>
+                                            <button class="btn btn-red" onclick="setDersDurum(${ders.id}, 'ogretmen-gelmedi')">Öğretmen Gelmedi</button>`;
                         } else {
                             islemButonlari = ' - ';
                         }
@@ -1221,7 +1233,7 @@
                     const ders = dersler.find(d => 
                         d.ogretmenId == ogretmenId && 
                         d.ogrenciId == odeme.ogrenciId && 
-                        d.bransId == ogretmen.bransId // Öğretmenin branşı ile ödemenin yapıldığı branşı eşleştir
+                        d.bransId == ogretmen.bransId 
                     );
                     return !!ders;
                 });
