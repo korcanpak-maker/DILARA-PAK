@@ -184,6 +184,7 @@
                     <li><a href="#branslar" id="nav-branslar">Branşlar</a></li>
                     <li><a href="#odemeler" id="nav-odemeler">Ödemeler</a></li>
                     <li><a href="#hakedisler" id="nav-hakedisler">Hakedişler</a></li>
+                    <li><a href="#" onclick="openModal('ai-modal')">AI Asistan</a></li>
                 </ul>
             </nav>
         </div>
@@ -191,6 +192,17 @@
 
     <div class="container">
         
+        <div id="ai-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ai-modal')">&times;</span>
+                <h3>Yapay Zeka Asistanı</h3>
+                <div id="ai-chat-box" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                    </div>
+                <input type="text" id="ai-input" placeholder="Bir soru sorun..." style="width: 80%; padding: 8px;">
+                <button class="btn" onclick="askAI()">Gönder</button>
+            </div>
+        </div>
+
         <div id="anasayfa" class="content page-content">
             <h2>Anasayfa</h2>
             <div class="summary-box">
@@ -294,159 +306,6 @@
                 <tbody>
                     </tbody>
             </table>
-        </div>
-
-        <div id="branslar" class="content page-content" style="display: none;">
-            <h2>Branşlar</h2>
-            <input type="text" id="brans-filtre" class="filter-input" placeholder="Branş adı ile filtrele...">
-            <button class="btn" onclick="openBransModal('brans-ekle-modal')">Yeni Kayıt</button>
-            <table id="brans-listesi-table">
-                <thead>
-                    <tr>
-                        <th>Branş Adı</th>
-                        <th>İşlemler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </div>
-
-        <div id="odemeler" class="content page-content" style="display: none;">
-            <h2>Ödemeler</h2>
-            <input type="text" id="odeme-filtre" class="filter-input" placeholder="Öğrenci Adı ile filtrele...">
-            <button class="btn" onclick="openOdemeModal('odeme-ekle-modal')">Yeni Ödeme Ekle</button>
-            <table id="odeme-listesi-table">
-                <thead>
-                    <tr>
-                        <th>Öğrenci</th>
-                        <th>Branş</th>
-                        <th>Ödeme Tarihi</th>
-                        <th>Tutar</th>
-                        <th>Durum</th>
-                        <th>İşlemler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </div>
-
-        <div id="hakedisler" class="content page-content" style="display: none;">
-            <h2>Hakedişler</h2>
-            <input type="text" id="hakedis-filtre" class="filter-input" placeholder="Öğretmen Adı ile filtrele...">
-            <table id="hakedis-ogretmen-listesi-table">
-                <thead>
-                    <tr>
-                        <th>Öğretmen Adı</th>
-                        <th>Branş</th>
-                        <th>İşlemler</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-            
-            <div id="hakedis-detay" style="display: none; margin-top: 20px;">
-                <h3><span id="hakedis-detay-ogretmen-adi"></span> Hakedişleri</h3>
-                <table id="hakedis-detay-table">
-                    <thead>
-                        <tr>
-                            <th>Öğrenci</th>
-                            <th>Ödeme Tarihi</th>
-                            <th>Hakediş Yüzdesi</th>
-                            <th>Hakediş Tutarı</th>
-                            <th>Durum</th>
-                            <th>İşlem</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="ogrenci-ekle-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('ogrenci-ekle-modal')">&times;</span>
-                <h3 id="ogrenci-modal-title">Öğrenci Kayıt Formu</h3>
-                <form id="ogrenci-form">
-                    <input type="hidden" id="ogrenci-id">
-                    <label for="ogrenci-adi">Adı Soyadı:</label><br>
-                    <input type="text" id="ogrenci-adi" name="ogrenci-adi" required><br><br>
-                    
-                    <label for="ogrenci-telefon">Telefon:</label><br>
-                    <input type="tel" id="ogrenci-telefon" name="ogrenci-telefon" required><br><br>
-
-                    <label for="veli-adi">Veli Adı Soyadı:</label><br>
-                    <input type="text" id="veli-adi" name="veli-adi" required><br><br>
-                    
-                    <label for="ogrenci-brans">Branşı:</label><br>
-                    <select id="ogrenci-brans" name="ogrenci-brans" required>
-                        </select><br><br>
-
-                    <label for="ogrenci-ucret">Ders Ücreti (TL):</label><br>
-                    <input type="number" id="ogrenci-ucret" name="ogrenci-ucret" required><br><br>
-
-                    <button type="submit" class="btn">Kaydet</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="ogretmen-ekle-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('ogretmen-ekle-modal')">&times;</span>
-                <h3 id="ogretmen-modal-title">Öğretmen Kayıt Formu</h3>
-                <form id="ogretmen-form">
-                    <input type="hidden" id="ogretmen-id">
-                    <label for="ogretmen-adi">Adı Soyadı:</label><br>
-                    <input type="text" id="ogretmen-adi" name="ogretmen-adi" required><br><br>
-                    
-                    <label for="ogretmen-telefon">Telefon:</label><br>
-                    <input type="tel" id="ogretmen-telefon" name="ogretmen-telefon" required><br><br>
-                    
-                    <label for="ogretmen-brans">Branşı:</label><br>
-                    <select id="ogretmen-brans" name="ogretmen-brans" required>
-                        </select><br><br>
-
-                    <label for="hakedis-yuzdesi">Hakediş Yüzdesi (%):</label><br>
-                    <input type="number" id="hakedis-yuzdesi" name="hakedis-yuzdesi" min="0" max="100" required><br><br>
-
-                    <button type="submit" class="btn">Kaydet</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="ders-ekle-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('ders-ekle-modal')">&times;</span>
-                <h3 id="ders-modal-title">Ders Kayıt Formu</h3>
-                <form id="ders-form">
-                    <input type="hidden" id="ders-id">
-                    <label for="ders-ogrenci">Öğrenci Seçin:</label><br>
-                    <select id="ders-ogrenci" name="ders-ogrenci" required>
-                        </select><br><br>
-
-                    <label for="ders-brans">Branş Seçin:</label><br>
-                    <select id="ders-brans" name="ders-brans" required>
-                        </select><br><br>
-
-                    <label for="ders-ogretmen">Öğretmen Seçin:</label><br>
-                    <select id="ders-ogretmen" name="ders-ogretmen" required>
-                        </select><br><br>
-                    
-                    <label for="ders-tarih">Tarih:</label><br>
-                    <input type="date" id="ders-tarih" name="ders-tarih" required><br><br>
-                    
-                    <label for="ders-saat">Saat:</label><br>
-                    <input type="time" id="ders-saat" name="ders-saat" required><br><br>
-                    
-                    <label for="ders-ucret">Ders Ücreti (TL):</label><br>
-                    <input type="number" id="ders-ucret" name="ders-ucret" readonly required><br><br>
-
-                    <button type="submit" class="btn">Kaydet</button>
-                </form>
-            </div>
         </div>
 
         <div id="branslar" class="content page-content" style="display: none;">
@@ -1423,13 +1282,12 @@
                 hakedisDetayBaslik.textContent = ogretmen.ad;
                 hakedisDetayTable.innerHTML = '';
 
-                // Hakediş hesabı için ders ve ödeme bilgilerini birleştiriyoruz
                 const hakedislerForOgretmen = hakedisler.filter(h => h.ogretmenId == ogretmenId);
 
                 hakedislerForOgretmen.forEach(hakedis => {
                     const odeme = odemeler.find(o => o.id == hakedis.odemeId);
-                    const ders = dersler.find(d => d.id == odeme.lessonId);
-                    const ogrenci = ogrenciler.find(o => o.id == odeme.ogrenciId);
+                    const ders = odeme ? dersler.find(d => d.id == odeme.lessonId) : null;
+                    const ogrenci = odeme ? ogrenciler.find(o => o.id == odeme.ogrenciId) : null;
                     
                     const odemeDurumu = hakedis.durum === 'ödendi' ? 'Ödendi' : 'Ödenmedi';
                     const odemeClass = hakedis.durum === 'ödendi' ? 'paid-row' : 'unpaid-row';
@@ -1438,7 +1296,7 @@
                     row.className = odemeClass;
                     row.innerHTML = `
                         <td>${ogrenci ? ogrenci.ad : 'Yok'}</td>
-                        <td>${odeme.tarih}</td>
+                        <td>${odeme ? odeme.tarih : 'Yok'}</td>
                         <td>%${ogretmen.hakedisYuzdesi}</td>
                         <td>${hakedis.tutar.toFixed(2)} TL</td>
                         <td>${odemeDurumu}</td>
@@ -1479,6 +1337,41 @@
                 updateSummaryCounts();
             }
         });
+
+        // Yapay zeka ile konuşma fonksiyonu
+        async function askAI() {
+            const inputElement = document.getElementById('ai-input');
+            const chatBox = document.getElementById('ai-chat-box');
+            const prompt = inputElement.value;
+
+            if (!prompt) return;
+
+            // Kullanıcının mesajını ekle
+            chatBox.innerHTML += `<p><strong>Siz:</strong> ${prompt}</p>`;
+            inputElement.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch('http://localhost:3000/ai-ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt })
+                });
+
+                const data = await response.json();
+
+                // AI'ın yanıtını ekle
+                chatBox.innerHTML += `<p><strong>AI:</strong> ${data.answer}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            } catch (error) {
+                console.error('Frontend AI isteği hatası:', error);
+                chatBox.innerHTML += `<p style="color: red;"><strong>AI:</strong> Maalesef, bir hata oluştu. Lütfen daha sonra tekrar deneyin.</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
     </script>
 </body>
 </html>
