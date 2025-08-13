@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitim Yönetim Sistemi</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        .content {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .summary-box {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .summary-box div {
+            background: #e4e4e4;
+            padding: 20px;
+            border-radius: 5px;
+            flex: 1;
+            margin: 0 10px;
+        }
+        .summary-box h2 {
+            margin: 0;
+            color: #333;
+        }
+        .summary-box p {
+            font-size: 2em;
+            margin: 10px 0 0;
+            color: #0779e4;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        .btn {
+            padding: 8px 15px;
+            background-color: #0779e4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 2px;
+        }
+        .btn-red {
+            background-color: #e74c3c;
+        }
+        .btn-green {
+            background-color: #28a745;
+        }
+        .btn-yellow {
+            background-color: #ffc107;
+        }
+        .filter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 5px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .paid-row {
+            background-color: #d4edda !important;
+            color: #155724;
+        }
+        .unpaid-row {
+            background-color: #f8d7da !important;
+            color: #721c24;
+        }
+        .lesson-completed {
+            background-color: #d4edda;
+        }
+        .lesson-missed {
+            background-color: #fff3cd;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Eğitim Yönetim Sistemi</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#anasayfa">Anasayfa</a></li>
+                    <li><a href="#ogrenciler">Öğrenciler</a></li>
+                    <li><a href="#ogretmenler">Öğretmenler</a></li>
+                    <li><a href="#dersler">Dersler</a></li>
+                    <li><a href="#branslar">Branşlar</a></li>
+                    <li><a href="#odemeler">Ödemeler</a></li>
+                    <li><a href="#hakedisler">Hakedişler</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div id="anasayfa" class="content page-content">
+            <h2>Anasayfa</h2>
+            <div class="summary-box">
+                <div>
+                    <h2>Toplam Öğrenci</h2>
+                    <p id="total-ogrenci">0</p>
+                </div>
+                <div>
+                    <h2>Toplam Öğretmen</h2>
+                    <p id="total-ogretmen">0</p>
+                </div>
+            </div>
+            <h3>Yaklaşan Dersler</h3>
+            <table id="ders-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Öğrenci Adı</th>
+                        <th>Öğretmen Adı</th>
+                        <th>Branş</th>
+                        <th>Gün</th>
+                        <th>Saat</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+        
+        <div id="ogrenciler" class="content page-content" style="display: none;">
+            <h2>Öğrenciler</h2>
+            <input type="text" id="ogrenci-filtre" class="filter-input" placeholder="Öğrenci Adı ile filtrele...">
+            <button class="btn" onclick="openOgrenciModal('ogrenci-ekle-modal')">Öğrenci Yeni Kayıt</button>
+            <table id="ogrenci-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Adı Soyadı</th>
+                        <th>Telefon</th>
+                        <th>Veli Adı</th>
+                        <th>Branş</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+            
+            <div id="ogrenci-odeme-detay" style="display: none; margin-top: 20px;">
+                <h3><span id="odeme-detay-ogrenci-adi"></span> Ödeme Durumu</h3>
+                <table id="ogrenci-odeme-table">
+                    <thead>
+                        <tr>
+                            <th>Ödeme Tarihi</th>
+                            <th>Branş</th>
+                            <th>Tutar</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="ogretmenler" class="content page-content" style="display: none;">
+            <h2>Öğretmenler</h2>
+            <input type="text" id="ogretmen-filtre" class="filter-input" placeholder="Öğretmen Adı ile filtrele...">
+            <button class="btn" onclick="openOgretmenModal('ogretmen-ekle-modal')">Öğretmen Yeni Kayıt</button>
+            <table id="ogretmen-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Adı Soyadı</th>
+                        <th>Telefon</th>
+                        <th>Branş</th>
+                        <th>Hakediş (%)</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="dersler" class="content page-content" style="display: none;">
+            <h2>Dersler</h2>
+            <input type="text" id="ders-filtre" class="filter-input" placeholder="Öğrenci Adı ile filtrele...">
+            <button class="btn" onclick="openDersModal('ders-ekle-modal')">Yeni Ders Kayıt</button>
+            <table id="ders-tablosu">
+                <thead>
+                    <tr>
+                        <th>Öğrenci</th>
+                        <th>Öğretmen</th>
+                        <th>Branş</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="branslar" class="content page-content" style="display: none;">
+            <h2>Branşlar</h2>
+            <input type="text" id="brans-filtre" class="filter-input" placeholder="Branş adı ile filtrele...">
+            <button class="btn" onclick="openBransModal('brans-ekle-modal')">Yeni Kayıt</button>
+            <table id="brans-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Branş Adı</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="odemeler" class="content page-content" style="display: none;">
+            <h2>Ödemeler</h2>
+            <input type="text" id="odeme-filtre" class="filter-input" placeholder="Öğrenci Adı ile filtrele...">
+            <button class="btn" onclick="openOdemeModal('odeme-ekle-modal')">Yeni Ödeme Ekle</button>
+            <table id="odeme-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Öğrenci</th>
+                        <th>Branş</th>
+                        <th>Ödeme Tarihi</th>
+                        <th>Tutar</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="hakedisler" class="content page-content" style="display: none;">
+            <h2>Hakedişler</h2>
+            <input type="text" id="hakedis-filtre" class="filter-input" placeholder="Öğretmen Adı ile filtrele...">
+            <table id="hakedis-ogretmen-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Öğretmen Adı</th>
+                        <th>Branş</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+            
+            <div id="hakedis-detay" style="display: none; margin-top: 20px;">
+                <h3><span id="hakedis-detay-ogretmen-adi"></span> Hakedişleri</h3>
+                <table id="hakedis-detay-table">
+                    <thead>
+                        <tr>
+                            <th>Öğrenci</th>
+                            <th>Ödeme Tarihi</th>
+                            <th>Hakediş Yüzdesi</th>
+                            <th>Hakediş Tutarı</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="ogrenci-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ogrenci-ekle-modal')">&times;</span>
+                <h3 id="ogrenci-modal-title">Öğrenci Kayıt Formu</h3>
+                <form id="ogrenci-form">
+                    <input type="hidden" id="ogrenci-id">
+                    <label for="ogrenci-adi">Adı Soyadı:</label><br>
+                    <input type="text" id="ogrenci-adi" name="ogrenci-adi" required><br><br>
+                    
+                    <label for="ogrenci-telefon">Telefon:</label><br>
+                    <input type="tel" id="ogrenci-telefon" name="ogrenci-telefon" required><br><br>
+
+                    <label for="veli-adi">Veli Adı Soyadı:</label><br>
+                    <input type="text" id="veli-adi" name="veli-adi" required><br><br>
+                    
+                    <label for="ogrenci-brans">Branşı:</label><br>
+                    <select id="ogrenci-brans" name="ogrenci-brans" required>
+                        </select><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="ogretmen-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ogretmen-ekle-modal')">&times;</span>
+                <h3 id="ogretmen-modal-title">Öğretmen Kayıt Formu</h3>
+                <form id="ogretmen-form">
+                    <input type="hidden" id="ogretmen-id">
+                    <label for="ogretmen-adi">Adı Soyadı:</label><br>
+                    <input type="text" id="ogretmen-adi" name="ogretmen-adi" required><br><br>
+                    
+                    <label for="ogretmen-telefon">Telefon:</label><br>
+                    <input type="tel" id="ogretmen-telefon" name="ogretmen-telefon" required><br><br>
+                    
+                    <label for="ogretmen-brans">Branşı:</label><br>
+                    <select id="ogretmen-brans" name="ogretmen-brans" required>
+                        </select><br><br>
+
+                    <label for="hakedis-yuzdesi">Hakediş Yüzdesi (%):</label><br>
+                    <input type="number" id="hakedis-yuzdesi" name="hakedis-yuzdesi" min="0" max="100" required><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="ders-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ders-ekle-modal')">&times;</span>
+                <h3 id="ders-modal-title">Ders Kayıt Formu</h3>
+                <form id="ders-form">
+                    <input type="hidden" id="ders-id">
+                    <label for="ders-ogrenci">Öğrenci Seçin:</label><br>
+                    <select id="ders-ogrenci" name="ders-ogrenci" required>
+                        </select><br><br>
+
+                    <label for="ders-brans">Branş Seçin:</label><br>
+                    <select id="ders-brans" name="ders-brans" required>
+                        </select><br><br>
+
+                    <label for="ders-ogretmen">Öğretmen Seçin:</label><br>
+                    <select id="ders-ogretmen" name="ders-ogretmen" required>
+                        </select><br><br>
+                    
+                    <label for="ders-tarih">Tarih:</label><br>
+                    <input type="date" id="ders-tarih" name="ders-tarih" required><br><br>
+                    
+                    <label for="ders-saat">Saat:</label><br>
+                    <input type="time" id="ders-saat" name="ders-saat" required><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="brans-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('brans-ekle-modal')">&times;</span>
+                <h3 id="brans-modal-title">Branş Kayıt Formu</h3>
+                <form id="brans-form">
+                    <input type="hidden" id="brans-id">
+                    <label for="brans-adi">Branş Adı:</label><br>
+                    <input type="text" id="brans-adi" name="brans-adi" required><br><br>
+                    
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="odeme-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('odeme-ekle-modal')">&times;</span>
+                <h3 id="odeme-modal-title">Ödeme Ekleme Formu</h3>
+                <form id="odeme-form">
+                    <input type="hidden" id="odeme-id">
+                    <label for="odeme-ogrenci">Öğrenci Seçin:</label><br>
+                    <select id="odeme-ogrenci" name="odeme-ogrenci" required>
+                        </select><br><br>
+                    
+                    <label for="odeme-tarih">Ödeme Tarihi:</label><br>
+                    <input type="date" id="odeme-tarih" name="odeme-tarih" required><br><br>
+                    
+                    <label for="odeme-brans">Branş Seçin:</label><br>
+                    <select id="odeme-brans" name="odeme-brans" required>
+                        </select><br><br>
+                    
+                    <label for="odeme-tutari">Tutar:</label><br>
+                    <input type="number" id="odeme-tutari" name="odeme-tutari" required><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Veri yapısı
+            let branslar = [];
+            let ogrenciler = [];
+            let ogretmenler = [];
+            let dersler = [];
+            let odemeler = [];
+            let hakedisler = [];
+
+            // Elementlere erişim
+            const pages = document.querySelectorAll('.page-content');
+            const navLinks = document.querySelectorAll('header a');
+            
+            // Modallar
+            const modals = document.querySelectorAll('.modal');
+
+            // Formlar
+            const ogrenciForm = document.getElementById('ogrenci-form');
+            const ogretmenForm = document.getElementById('ogretmen-form');
+            const dersForm = document.getElementById('ders-form');
+            const bransForm = document.getElementById('brans-form');
+            const odemeForm = document.getElementById('odeme-form');
+
+            // Select kutuları
+            const ogrenciBransSelect = document.getElementById('ogrenci-brans');
+            const ogretmenBransSelect = document.getElementById('ogretmen-brans');
+            const dersOgrenciSelect = document.getElementById('ders-ogrenci');
+            const dersBransSelect = document.getElementById('ders-brans');
+            const dersOgretmenSelect = document.getElementById('ders-ogretmen');
+            const odemeOgrenciSelect = document.getElementById('odeme-ogrenci');
+            const odemeBransSelect = document.getElementById('odeme-brans');
+
+            // Tablolar ve filtreler
+            const anasayfaDersTable = document.getElementById('ders-listesi-table').querySelector('tbody');
+            const ogrenciListesiTable = document.getElementById('ogrenci-listesi-table').querySelector('tbody');
+            const ogrenciOdemeTable = document.getElementById('ogrenci-odeme-table').querySelector('tbody');
+            const ogretmenListesiTable = document.getElementById('ogretmen-listesi-table').querySelector('tbody');
+            const dersTablosu = document.getElementById('ders-tablosu').querySelector('tbody');
+            const bransListesiTable = document.getElementById('brans-listesi-table').querySelector('tbody');
+            const odemeListesiTable = document.getElementById('odeme-listesi-table').querySelector('tbody');
+            const hakedisOgretmenListesiTable = document.getElementById('hakedis-ogretmen-listesi-table').querySelector('tbody');
+            const hakedisDetayTable = document.getElementById('hakedis-detay-table').querySelector('tbody');
+            const ogrenciOdemeDetayDiv = document.getElementById('ogrenci-odeme-detay');
+
+            const ogrenciFiltreInput = document.getElementById('ogrenci-filtre');
+            const ogretmenFiltreInput = document.getElementById('ogretmen-filtre');
+            const dersFiltreInput = document.getElementById('ders-filtre');
+            const bransFiltreInput = document.getElementById('brans-filtre');
+            const odemeFiltreInput = document.getElementById('odeme-filtre');
+            const hakedisFiltreInput = document.getElementById('hakedis-filtre');
+            
+            let currentOgrenciId = null;
+
+            // localStorage'dan verileri çekme
+            function loadData() {
+                branslar = JSON.parse(localStorage.getItem('branslar')) || [];
+                ogrenciler = JSON.parse(localStorage.getItem('ogrenciler')) || [];
+                ogretmenler = JSON.parse(localStorage.getItem('ogretmenler')) || [];
+                dersler = JSON.parse(localStorage.getItem('dersler')) || [];
+                odemeler = JSON.parse(localStorage.getItem('odemeler')) || [];
+                hakedisler = JSON.parse(localStorage.getItem('hakedisler')) || [];
+            }
+
+            // Verileri localStorage'a kaydetme
+            function saveData() {
+                localStorage.setItem('branslar', JSON.stringify(branslar));
+                localStorage.setItem('ogrenciler', JSON.stringify(ogrenciler));
+                localStorage.setItem('ogretmenler', JSON.stringify(ogretmenler));
+                localStorage.setItem('dersler', JSON.stringify(dersler));
+                localStorage.setItem('odemeler', JSON.stringify(odemeler));
+                localStorage.setItem('hakedisler', JSON.stringify(hakedisler));
+            }
+
+            // Sayfa açılışında tüm verileri yükle
+            loadData();
+            updateAllLists();
+            
+            // --- Genel Fonksiyonlar ---
+            
+            // Sayfalar arası geçiş
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    pages.forEach(page => page.style.display = 'none');
+                    document.querySelector(link.getAttribute('href')).style.display = 'block';
+                    // Her sayfa geçişinde liste güncellemelerini tekrar çalıştır
+                    updateAllLists();
+                });
+            });
+
+            // Modal fonksiyonları
+            window.openModal = function(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'block';
+            }
+            window.closeModal = function(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            }
+            window.onclick = function(event) {
+                modals.forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Dropdownları dolduran ana fonksiyonlar
+            function fillBransSelects() {
+                const selects = [ogrenciBransSelect, ogretmenBransSelect, dersBransSelect, odemeBransSelect];
+                selects.forEach(select => {
+                    select.innerHTML = '<option value="">Branş Seçin</option>';
+                    branslar.forEach(brans => {
+                        const option = document.createElement('option');
+                        option.value = brans.id;
+                        option.textContent = brans.ad;
+                        select.appendChild(option);
+                    });
+                });
+            }
+
+            function fillOgrenciSelects() {
+                const selects = [dersOgrenciSelect, odemeOgrenciSelect];
+                selects.forEach(select => {
+                    select.innerHTML = '<option value="">Öğrenci Seçin</option>';
+                    ogrenciler.forEach(ogrenci => {
+                        const option = document.createElement('option');
+                        option.value = ogrenci.id;
+                        option.textContent = ogrenci.ad;
+                        select.appendChild(option);
+                    });
+                });
+            }
+            
+            function fillOgretmenSelects() {
+                const selects = [dersOgretmenSelect];
+                selects.forEach(select => {
+                    select.innerHTML = '<option value="">Öğretmen Seçin</option>';
+                    ogretmenler.forEach(ogretmen => {
+                        const option = document.createElement('option');
+                        option.value = ogretmen.id;
+                        option.textContent = ogretmen.ad;
+                        select.appendChild(option);
+                    });
+                });
+            }
+
+            // --- Anasayfa ---
+            function updateSummaryCounts() {
+                document.getElementById('total-ogrenci').textContent = ogrenciler.length;
+                document.getElementById('total-ogretmen').textContent = ogretmenler.length;
+            }
+
+            function listeleAnasayfaDersleri() {
+                anasayfaDersTable.innerHTML = '';
+                const today = new Date().toISOString().slice(0, 10);
+                
+                // Dersleri tarihe göre sırala ve sadece bugünden sonraki veya bugünkü 10 dersi al
+                const upcomingLessons = dersler
+                    .filter(ders => ders.tarih >= today)
+                    .sort((a, b) => {
+                        if (a.tarih < b.tarih) return -1;
+                        if (a.tarih > b.tarih) return 1;
+                        if (a.saat < b.saat) return -1;
+                        if (a.saat > b.saat) return 1;
+                        return 0;
+                    })
+                    .slice(0, 10);
+
+                if (upcomingLessons.length === 0) {
+                    anasayfaDersTable.innerHTML = `<tr><td colspan="7" style="text-align: center;">Bugün ve yakın gelecekte ders bulunmamaktadır.</td></tr>`;
+                    return;
+                }
+
+                upcomingLessons.forEach(ders => {
+                    const ogrenci = ogrenciler.find(o => o.id == ders.ogrenciId);
+                    const ogretmen = ogretmenler.find(o => o.id == ders.ogretmenId);
+                    const brans = branslar.find(b => b.id == ders.bransId);
+                    
+                    let durum = ders.durum || 'bekleniyor';
+                    let durumClass = '';
+                    let durumText = '';
+                    let islemButonlari = '';
+
+                    const isToday = ders.tarih === today;
+
+                    if (durum === 'tamamlandı') {
+                        durumClass = 'lesson-completed';
+                        durumText = 'Ders Tamamlandı';
+                        if (isToday) {
+                            islemButonlari = `<button class="btn btn-yellow" onclick="setDersDurum(${ders.id}, 'bekleniyor')">Geri Al</button>`;
+                        } else {
+                            islemButonlari = ' - ';
+                        }
+                    } else if (durum === 'gelmedi') {
+                        durumClass = 'lesson-missed';
+                        durumText = 'Öğrenci Gelmedi';
+                        if (isToday) {
+                            islemButonlari = `<button class="btn btn-yellow" onclick="setDersDurum(${ders.id}, 'bekleniyor')">Geri Al</button>`;
+                        } else {
+                            islemButonlari = ' - ';
+                        }
+                    } else {
+                        durumText = 'Bekleniyor';
+                        if (isToday) {
+                            islemButonlari = `<button class="btn btn-green" onclick="setDersDurum(${ders.id}, 'tamamlandı')">Ders Tamamlandı</button>
+                                            <button class="btn btn-red" onclick="setDersDurum(${ders.id}, 'gelmedi')">Öğrenci Gelmedi</button>`;
+                        } else {
+                            islemButonlari = ' - ';
+                        }
+                    }
+
+                    const row = anasayfaDersTable.insertRow();
+                    row.className = durumClass;
+                    row.innerHTML = `
+                        <td>${ogrenci ? ogrenci.ad : 'Yok'}</td>
+                        <td>${ogretmen ? ogretmen.ad : 'Yok'}</td>
+                        <td>${brans ? brans.ad : 'Yok'}</td>
+                        <td>${ders.tarih}</td>
+                        <td>${ders.saat}</td>
+                        <td>${durumText}</td>
+                        <td>${islemButonlari}</td>
+                    `;
+                });
+            }
+
+            window.setDersDurum = function(dersId, durum) {
+                const ders = dersler.find(d => d.id === dersId);
+                if (ders) {
+                    ders.durum = durum;
+                    saveData();
+                    updateAllLists();
+                }
+            }
+
+            // --- Branşlar Sayfası ---
+            function listeleBranslar(filtre = '') {
+                bransListesiTable.innerHTML = '';
+                const filteredBranslar = branslar.filter(brans => brans.ad.toLowerCase().includes(filtre.toLowerCase()));
+
+                filteredBranslar.forEach(brans => {
+                    const row = bransListesiTable.insertRow();
+                    row.innerHTML = `
+                        <td>${brans.ad}</td>
+                        <td>
+                            <button class="btn" onclick="openBransModal('brans-ekle-modal', ${brans.id})">Düzenle</button>
+                            <button class="btn btn-red" onclick="deleteBrans(${brans.id})">Sil</button>
+                        </td>
+                    `;
+                });
+            }
+
+            bransForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const bransAdi = document.getElementById('brans-adi').value;
+                const bransId = document.getElementById('brans-id').value;
+
+                if (bransId) {
+                    const brans = branslar.find(b => b.id == bransId);
+                    if (brans) brans.ad = bransAdi;
+                } else {
+                    branslar.push({
+                        id: Date.now(),
+                        ad: bransAdi
+                    });
+                }
+                saveData();
+                updateAllLists();
+                closeModal('brans-ekle-modal');
+                bransForm.reset();
+            });
+
+            window.openBransModal = function(modalId, bransId = null) {
+                document.getElementById('brans-modal-title').textContent = bransId ? 'Branş Düzenle' : 'Branş Kayıt Formu';
+                document.getElementById('brans-id').value = bransId || '';
+                document.getElementById('brans-adi').value = '';
+                if (bransId) {
+                    const brans = branslar.find(b => b.id == bransId);
+                    if (brans) document.getElementById('brans-adi').value = brans.ad;
+                }
+                openModal(modalId);
+            }
+
+            window.editBrans = function(id) {
+                openBransModal('brans-ekle-modal', id);
+            }
+            window.deleteBrans = function(id) {
+                if(confirm('Branşı silmek istediğinize emin misiniz?')) {
+                    branslar = branslar.filter(brans => brans.id !== id);
+                    dersler = dersler.filter(d => d.bransId !== id);
+                    ogretmenler = ogretmenler.map(o => {
+                        if (o.bransId === id) o.bransId = null;
+                        return o;
+                    });
+                    ogrenciler = ogrenciler.map(o => {
+                        if (o.bransId === id) o.bransId = null;
+                        return o;
+                    });
+                    odemeler = odemeler.filter(o => o.bransId !== id);
+                    saveData();
+                    updateAllLists();
+                }
+            }
+            bransFiltreInput.addEventListener('keyup', () => listeleBranslar(bransFiltreInput.value));
+
+            // --- Öğrenciler Sayfası ---
+            function listeleOgrenciler(filtre = '') {
+                ogrenciListesiTable.innerHTML = '';
+                const filteredOgrenciler = ogrenciler.filter(o => o.ad.toLowerCase().includes(filtre.toLowerCase()));
+
+                filteredOgrenciler.forEach(ogrenci => {
+                    const brans = branslar.find(b => b.id == ogrenci.bransId);
+                    const row = ogrenciListesiTable.insertRow();
+                    row.innerHTML = `
+                        <td onclick="toggleOgrenciOdemeDetay(${ogrenci.id})">${ogrenci.ad}</td>
+                        <td>${ogrenci.telefon}</td>
+                        <td>${ogrenci.veli}</td>
+                        <td>${brans ? brans.ad : 'Belirtilmemiş'}</td>
+                        <td>
+                            <button class="btn" onclick="openOgrenciModal('ogrenci-ekle-modal', ${ogrenci.id})">Düzenle</button>
+                            <button class="btn btn-red" onclick="deleteOgrenci(${ogrenci.id})">Sil</button>
+                        </td>
+                    `;
+                });
+            }
+
+            ogrenciForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const ogrenciId = document.getElementById('ogrenci-id').value;
+                const ogrenciAdi = document.getElementById('ogrenci-adi').value;
+                const ogrenciTelefon = document.getElementById('ogrenci-telefon').value;
+                const veliAdi = document.getElementById('veli-adi').value;
+                const bransId = document.getElementById('ogrenci-brans').value;
+
+                if (ogrenciId) {
+                    const ogrenci = ogrenciler.find(o => o.id == ogrenciId);
+                    if (ogrenci) {
+                        ogrenci.ad = ogrenciAdi;
+                        ogrenci.telefon = ogrenciTelefon;
+                        ogrenci.veli = veliAdi;
+                        ogrenci.bransId = bransId;
+                    }
+                } else {
+                    ogrenciler.push({
+                        id: Date.now(),
+                        ad: ogrenciAdi,
+                        telefon: ogrenciTelefon,
+                        veli: veliAdi,
+                        bransId: bransId
+                    });
+                }
+                saveData();
+                updateAllLists();
+                closeModal('ogrenci-ekle-modal');
+                ogrenciForm.reset();
+            });
+
+            window.openOgrenciModal = function(modalId, ogrenciId = null) {
+                document.getElementById('ogrenci-modal-title').textContent = ogrenciId ? 'Öğrenci Düzenle' : 'Öğrenci Kayıt Formu';
+                document.getElementById('ogrenci-id').value = ogrenciId || '';
+                ogrenciForm.reset();
+                if (ogrenciId) {
+                    const ogrenci = ogrenciler.find(o => o.id == ogrenciId);
+                    if (ogrenci) {
+                        document.getElementById('ogrenci-adi').value = ogrenci.ad;
+                        document.getElementById('ogrenci-telefon').value = ogrenci.telefon;
+                        document.getElementById('veli-adi').value = ogrenci.veli;
+                        document.getElementById('ogrenci-brans').value = ogrenci.bransId;
+                    }
+                }
+                openModal(modalId);
+            }
+
+            window.deleteOgrenci = function(id) {
+                if(confirm('Öğrenciyi silmek istediğinize emin misiniz?')) {
+                    ogrenciler = ogrenciler.filter(ogrenci => ogrenci.id !== id);
+                    dersler = dersler.filter(d => d.ogrenciId !== id);
+                    odemeler = odemeler.filter(o => o.ogrenciId !== id);
+                    saveData();
+                    updateAllLists();
+                }
+            }
+            ogrenciFiltreInput.addEventListener('keyup', () => listeleOgrenciler(ogrenciFiltreInput.value));
+
+            window.toggleOgrenciOdemeDetay = function(ogrenciId) {
+                const ogrenci = ogrenciler.find(o => o.id === ogrenciId);
+                
+                if (ogrenciOdemeDetayDiv.style.display === 'block' && ogrenciOdemeDetayDiv.dataset.ogrenciId === String(ogrenciId)) {
+                    ogrenciOdemeDetayDiv.style.display = 'none';
+                    return;
+                }
+
+                document.getElementById('odeme-detay-ogrenci-adi').textContent = ogrenci.ad;
+                ogrenciOdemeTable.innerHTML = '';
+                const odemelerOgrenci = odemeler.filter(o => o.ogrenciId == ogrenciId);
+                
+                odemelerOgrenci.forEach(odeme => {
+                    const brans = branslar.find(b => b.id == odeme.bransId);
+                    const row = ogrenciOdemeTable.insertRow();
+                    row.innerHTML = `
+                        <td>${odeme.tarih}</td>
+                        <td>${brans ? brans.ad : 'Yok'}</td>
+                        <td>${odeme.tutar} TL</td>
+                        <td class="${odeme.durum === 'ödendi' ? 'paid-row' : 'unpaid-row'}">${odeme.durum}</td>
+                    `;
+                });
+                ogrenciOdemeDetayDiv.style.display = 'block';
+                ogrenciOdemeDetayDiv.dataset.ogrenciId = ogrenciId;
+            }
+
+            // --- Öğretmenler Sayfası ---
+            function listeleOgretmenler(filtre = '') {
+                ogretmenListesiTable.innerHTML = '';
+                const filteredOgretmenler = ogretmenler.filter(o => o.ad.toLowerCase().includes(filtre.toLowerCase()));
+
+                filteredOgretmenler.forEach(ogretmen => {
+                    const brans = branslar.find(b => b.id == ogretmen.bransId);
+                    const row = ogretmenListesiTable.insertRow();
+                    row.innerHTML = `
+                        <td>${ogretmen.ad}</td>
+                        <td>${ogretmen.telefon}</td>
+                        <td>${brans ? brans.ad : 'Belirtilmemiş'}</td>
+                        <td>%${ogretmen.hakedisYuzdesi}</td>
+                        <td>
+                            <button class="btn" onclick="openOgretmenModal('ogretmen-ekle-modal', ${ogretmen.id})">Düzenle</button>
+                            <button class="btn btn-red" onclick="deleteOgretmen(${ogretmen.id})">Sil</button>
+                        </td>
+                    `;
+                });
+            }
+
+            ogretmenForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const ogretmenId = document.getElementById('ogretmen-id').value;
+                const ogretmenAdi = document.getElementById('ogretmen-adi').value;
+                const ogretmenTelefon = document.getElementById('ogretmen-telefon').value;
+                const bransId = document.getElementById('ogretmen-brans').value;
+                const hakedisYuzdesi = document.getElementById('hakedis-yuzdesi').value;
+
+                if (ogretmenId) {
+                    const ogretmen = ogretmenler.find(o => o.id == ogretmenId);
+                    if (ogretmen) {
+                        ogretmen.ad = ogretmenAdi;
+                        ogretmen.telefon = ogretmenTelefon;
+                        ogretmen.bransId = bransId;
+                        ogretmen.hakedisYuzdesi = hakedisYuzdesi;
+                    }
+                } else {
+                    ogretmenler.push({
+                        id: Date.now(),
+                        ad: ogretmenAdi,
+                        telefon: ogretmenTelefon,
+                        bransId: bransId,
+                        hakedisYuzdesi: hakedisYuzdesi
+                    });
+                }
+                saveData();
+                updateAllLists();
+                closeModal('ogretmen-ekle-modal');
+                ogretmenForm.reset();
+            });
+
+            window.openOgretmenModal = function(modalId, ogretmenId = null) {
+                document.getElementById('ogretmen-modal-title').textContent = ogretmenId ? 'Öğretmen Düzenle' : 'Öğretmen Kayıt Formu';
+                document.getElementById('ogretmen-id').value = ogretmenId || '';
+                ogretmenForm.reset();
+                if (ogretmenId) {
+                    const ogretmen = ogretmenler.find(o => o.id == ogretmenId);
+                    if (ogretmen) {
+                        document.getElementById('ogretmen-adi').value = ogretmen.ad;
+                        document.getElementById('ogretmen-telefon').value = ogretmen.telefon;
+                        document.getElementById('ogretmen-brans').value = ogretmen.bransId;
+                        document.getElementById('hakedis-yuzdesi').value = ogretmen.hakedisYuzdesi;
+                    }
+                }
+                openModal(modalId);
+            }
+
+            window.deleteOgretmen = function(id) {
+                if(confirm('Öğretmeni silmek istediğinize emin misiniz?')) {
+                    ogretmenler = ogretmenler.filter(ogretmen => ogretmen.id !== id);
+                    dersler = dersler.filter(d => d.ogretmenId !== id);
+                    saveData();
+                    updateAllLists();
+                }
+            }
+            ogretmenFiltreInput.addEventListener('keyup', () => listeleOgretmenler(ogretmenFiltreInput.value));
+
+            // --- Dersler Sayfası ---
+            function listeleDersler(filtre = '') {
+                dersTablosu.innerHTML = '';
+                const filteredDersler = dersler.filter(ders => {
+                    const ogrenci = ogrenciler.find(o => o.id == ders.ogrenciId);
+                    return ogrenci && ogrenci.ad.toLowerCase().includes(filtre.toLowerCase());
+                });
+
+                filteredDersler.forEach(ders => {
+                    const ogrenci = ogrenciler.find(o => o.id == ders.ogrenciId);
+                    const ogretmen = ogretmenler.find(o => o.id == ders.ogretmenId);
+                    const brans = branslar.find(b => b.id == ders.bransId);
+
+                    const row = dersTablosu.insertRow();
+                    row.innerHTML = `
+                        <td>${ogrenci ? ogrenci.ad : 'Yok'}</td>
+                        <td>${ogretmen ? ogretmen.ad : 'Yok'}</td>
+                        <td>${brans ? brans.ad : 'Yok'}</td>
+                        <td>${ders.tarih}</td>
+                        <td>${ders.saat}</td>
+                        <td>
+                            <button class="btn" onclick="openDersModal('ders-ekle-modal', ${ders.id})">Düzenle</button>
+                            <button class="btn btn-red" onclick="deleteDers(${ders.id})">Sil</button>
+                        </td>
+                    `;
+                });
+            }
+
+            dersForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const dersId = document.getElementById('ders-id').value;
+                const newDers = {
+                    ogrenciId: document.getElementById('ders-ogrenci').value,
+                    bransId: document.getElementById('ders-brans').value,
+                    ogretmenId: document.getElementById('ders-ogretmen').value,
+                    tarih: document.getElementById('ders-tarih').value,
+                    saat: document.getElementById('ders-saat').value,
+                    durum: 'bekleniyor'
+                };
+
+                if (dersId) {
+                    const ders = dersler.find(d => d.id == dersId);
+                    if (ders) {
+                        Object.assign(ders, newDers);
+                    }
+                } else {
+                    newDers.id = Date.now();
+                    dersler.push(newDers);
+                }
+                saveData();
+                updateAllLists();
+                closeModal('ders-ekle-modal');
+                dersForm.reset();
+            });
+            
+            window.openDersModal = function(modalId, dersId = null) {
+                document.getElementById('ders-modal-title').textContent = dersId ? 'Ders Düzenle' : 'Ders Kayıt Formu';
+                document.getElementById('ders-id').value = dersId || '';
+                dersForm.reset();
+                if (dersId) {
+                    const ders = dersler.find(d => d.id == dersId);
+                    if (ders) {
+                        document.getElementById('ders-ogrenci').value = ders.ogrenciId;
+                        document.getElementById('ders-brans').value = ders.bransId;
+                        document.getElementById('ders-ogretmen').value = ders.ogretmenId;
+                        document.getElementById('ders-tarih').value = ders.tarih;
+                        document.getElementById('ders-saat').value = ders.saat;
+                    }
+                }
+                openModal(modalId);
+            }
+
+            window.deleteDers = function(id) {
+                if(confirm('Dersi silmek istediğinize emin misiniz?')) {
+                    dersler = dersler.filter(ders => ders.id !== id);
+                    saveData();
+                    updateAllLists();
+                }
+            }
+            dersFiltreInput.addEventListener('keyup', () => listeleDersler(dersFiltreInput.value));
+
+            // --- Ödemeler Sayfası ---
+            function listeleOdemeler(filtre = '') {
+                odemeListesiTable.innerHTML = '';
+                const filteredOdemeler = odemeler.filter(odeme => {
+                    const ogrenci = ogrenciler.find(o => o.id == odeme.ogrenciId);
+                    return ogrenci && ogrenci.ad.toLowerCase().includes(filtre.toLowerCase());
+                });
+
+                filteredOdemeler.forEach(odeme => {
+                    const ogrenci = ogrenciler.find(o => o.id == odeme.ogrenciId);
+                    const brans = branslar.find(b => b.id == odeme.bransId);
+                    const row = odemeListesiTable.insertRow();
+                    const durumText = odeme.durum === 'ödendi' ? 'Ödendi' : 'Ödenmedi';
+                    const durumClass = odeme.durum === 'ödendi' ? 'paid-row' : 'unpaid-row';
+                    const odendiButonText = odeme.durum === 'ödendi' ? 'Geri Al' : 'Ödendi';
+
+                    row.innerHTML = `
+                        <td>${ogrenci ? ogrenci.ad : 'Yok'}</td>
+                        <td>${brans ? brans.ad : 'Yok'}</td>
+                        <td>${odeme.tarih}</td>
+                        <td>${odeme.tutar} TL</td>
+                        <td class="${durumClass}">${durumText}</td>
+                        <td>
+                            <button class="btn" onclick="toggleOdemeDurum(${odeme.id})">${odendiButonText}</button>
+                            <button class="btn" onclick="openOdemeModal('odeme-ekle-modal', ${odeme.id})">Düzenle</button>
+                            <button class="btn btn-red" onclick="deleteOdeme(${odeme.id})">Sil</button>
+                        </td>
+                    `;
+                });
+            }
+
+            // Ödeme durumunu değiştiren yeni fonksiyon
+            window.toggleOdemeDurum = function(id) {
+                const odeme = odemeler.find(o => o.id === id);
+                if (odeme) {
+                    odeme.durum = odeme.durum === 'ödendi' ? 'ödenmedi' : 'ödendi';
+                    saveData();
+                    updateAllLists();
+                }
+            }
+
+            odemeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const odemeId = document.getElementById('odeme-id').value;
+                const newOdeme = {
+                    ogrenciId: document.getElementById('odeme-ogrenci').value,
+                    tarih: document.getElementById('odeme-tarih').value,
+                    bransId: document.getElementById('odeme-brans').value,
+                    tutar: document.getElementById('odeme-tutari').value,
+                    durum: 'ödenmedi'
+                };
+                if (odemeId) {
+                    const odeme = odemeler.find(o => o.id == odemeId);
+                    if (odeme) {
+                        Object.assign(odeme, newOdeme);
+                    }
+                } else {
+                    newOdeme.id = Date.now();
+                    odemeler.push(newOdeme);
+                }
+                saveData();
+                updateAllLists();
+                closeModal('odeme-ekle-modal');
+                odemeForm.reset();
+            });
+
+            window.openOdemeModal = function(modalId, odemeId = null) {
+                document.getElementById('odeme-modal-title').textContent = odemeId ? 'Ödeme Düzenle' : 'Ödeme Ekleme Formu';
+                document.getElementById('odeme-id').value = odemeId || '';
+                odemeForm.reset();
+                if (odemeId) {
+                    const odeme = odemeler.find(o => o.id == odemeId);
+                    if (odeme) {
+                        document.getElementById('odeme-ogrenci').value = odeme.ogrenciId;
+                        document.getElementById('odeme-tarih').value = odeme.tarih;
+                        document.getElementById('odeme-brans').value = odeme.bransId;
+                        document.getElementById('odeme-tutari').value = odeme.tutar;
+                    }
+                }
+                openModal(modalId);
+            }
+            window.editOdeme = function(id) {
+                openOdemeModal('odeme-ekle-modal', id);
+            }
+            window.deleteOdeme = function(id) {
+                if(confirm('Ödemeyi silmek istediğinize emin misiniz?')) {
+                    odemeler = odemeler.filter(odeme => odeme.id !== id);
+                    saveData();
+                    updateAllLists();
+                }
+            }
+            odemeFiltreInput.addEventListener('keyup', () => listeleOdemeler(odemeFiltreInput.value));
+            
+            // --- Hakedişler Sayfası ---
+            function listeleOgretmenHakedis(filtre = '') {
+                hakedisOgretmenListesiTable.innerHTML = '';
+                const filteredOgretmenler = ogretmenler.filter(o => o.ad.toLowerCase().includes(filtre.toLowerCase()));
+
+                filteredOgretmenler.forEach(ogretmen => {
+                    const brans = branslar.find(b => b.id == ogretmen.bransId);
+                    const row = hakedisOgretmenListesiTable.insertRow();
+                    row.innerHTML = `
+                        <td onclick="toggleHakedisDetay(${ogretmen.id})">${ogretmen.ad}</td>
+                        <td>${brans ? brans.ad : 'Belirtilmemiş'}</td>
+                        <td><button class="btn" onclick="toggleHakedisDetay(${ogretmen.id})">Detay Gör</button></td>
+                    `;
+                });
+            }
+
+            window.toggleHakedisDetay = function(ogretmenId) {
+                const ogretmen = ogretmenler.find(o => o.id === ogretmenId);
+                const hakedisDetayDiv = document.getElementById('hakedis-detay');
+                const hakedisDetayBaslik = document.getElementById('hakedis-detay-ogretmen-adi');
+
+                hakedisDetayBaslik.textContent = ogretmen.ad;
+                hakedisDetayTable.innerHTML = '';
+
+                const odemelerFromDersler = odemeler.filter(odeme => {
+                    return dersler.some(ders => ders.ogretmenId == ogretmenId && ders.ogrenciId == odeme.ogrenciId && ders.bransId == odeme.bransId);
+                });
+
+                odemelerFromDersler.forEach(odeme => {
+                    const ogrenci = ogrenciler.find(o => o.id == odeme.ogrenciId);
+                    const hakedisYuzdesi = ogretmen.hakedisYuzdesi / 100;
+                    const hakedisTutari = odeme.tutar * hakedisYuzdesi;
+                    
+                    const hakedisOdendiMi = hakedisler.some(h => h.odemeId === odeme.id);
+                    const odemeDurumu = hakedisOdendiMi ? 'Ödendi' : 'Ödenmedi';
+                    const odemeClass = hakedisOdendiMi ? 'paid-row' : 'unpaid-row';
+
+                    const row = hakedisDetayTable.insertRow();
+                    row.className = odemeClass;
+                    row.innerHTML = `
+                        <td>${ogrenci ? ogrenci.ad : 'Yok'}</td>
+                        <td>${odeme.tarih}</td>
+                        <td>%${ogretmen.hakedisYuzdesi}</td>
+                        <td>${hakedisTutari.toFixed(2)} TL</td>
+                        <td>${odemeDurumu}</td>
+                        <td>
+                            <button class="btn" onclick="odendiHakedis(${odeme.id}, ${ogretmenId})">${hakedisOdendiMi ? 'Geri Al' : 'Ödendi'}</button>
+                        </td>
+                    `;
+                });
+                hakedisDetayDiv.style.display = 'block';
+                hakedisDetayDiv.dataset.ogretmenId = ogretmenId;
+            }
+
+            window.odendiHakedis = function(odemeId, ogretmenId) {
+                const existingHakedisIndex = hakedisler.findIndex(h => h.odemeId === odemeId);
+                if (existingHakedisIndex > -1) {
+                    hakedisler.splice(existingHakedisIndex, 1);
+                    alert('Hakedişin ödemesi geri alındı.');
+                } else {
+                    hakedisler.push({
+                        id: Date.now(),
+                        odemeId: odemeId,
+                        ogretmenId: ogretmenId,
+                        odemeTarihi: new Date().toISOString().slice(0, 10)
+                    });
+                    alert('Hakediş ödendi olarak işaretlendi.');
+                }
+                saveData();
+                updateAllLists();
+                toggleHakedisDetay(ogretmenId);
+            }
+            
+            hakedisFiltreInput.addEventListener('keyup', () => listeleOgretmenHakedis(hakedisFiltreInput.value));
+
+            // Tüm listeleri ve dropdown'ları güncelleyen ana fonksiyon
+            function updateAllLists() {
+                fillBransSelects();
+                fillOgrenciSelects();
+                fillOgretmenSelects();
+                
+                listeleBranslar();
+                listeleOgrenciler();
+                listeleOgretmenler();
+                listeleDersler();
+                listeleOdemeler();
+                listeleOgretmenHakedis();
+                listeleAnasayfaDersleri();
+                updateSummaryCounts();
+            }
+        });
+    </script>
+</body>
+</html>
