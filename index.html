@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dilara Pak Sanat Akademi</title>
+    <title>Eğitim Yönetim Sistemi</title>
     <style>
         body {
             font-family: sans-serif;
@@ -170,7 +170,7 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1>Dilara Pak Sanat Akademi</h1>
+                <h1>Eğitim Yönetim Sistemi</h1>
             </div>
             <nav>
                 <ul>
@@ -229,6 +229,7 @@
                         <th>Telefon</th>
                         <th>Veli Adı</th>
                         <th>Branş</th>
+                        <th>Ücret</th>
                         <th>İşlemler</th>
                     </tr>
                 </thead>
@@ -381,6 +382,9 @@
                     <select id="ogrenci-brans" name="ogrenci-brans" required>
                         </select><br><br>
 
+                    <label for="ogrenci-ucret">Ders Ücreti (TL):</label><br>
+                    <input type="number" id="ogrenci-ucret" name="ogrenci-ucret" required><br><br>
+
                     <button type="submit" class="btn">Kaydet</button>
                 </form>
             </div>
@@ -471,7 +475,7 @@
                         </select><br><br>
                     
                     <label for="odeme-tutari">Tutar:</label><br>
-                    <input type="number" id="odeme-tutari" name="odeme-tutari" required><br><br>
+                    <input type="number" id="odeme-tutari" name="odeme-tutari" readonly required><br><br>
 
                     <button type="submit" class="btn">Kaydet</button>
                 </form>
@@ -491,7 +495,7 @@
             let hakedisler = [];
 
             // Uygulama şifresi
-            const ADMIN_PASSWORD = "291014";
+            const ADMIN_PASSWORD = "1234";
 
             // Elementlere erişim
             const pages = document.querySelectorAll('.page-content');
@@ -520,6 +524,10 @@
             const dersOgretmenSelect = document.getElementById('ders-ogretmen');
             const odemeOgrenciSelect = document.getElementById('odeme-ogrenci');
             const odemeBransSelect = document.getElementById('odeme-brans');
+            
+            // Eklenen yeni elementler
+            const ogrenciUcretInput = document.getElementById('ogrenci-ucret');
+            const odemeTutariInput = document.getElementById('odeme-tutari');
 
             // Tablolar ve filtreler
             const anasayfaDersTable = document.getElementById('ders-listesi-table').querySelector('tbody');
@@ -819,6 +827,7 @@
                         <td>${ogrenci.telefon}</td>
                         <td>${ogrenci.veli}</td>
                         <td>${brans ? brans.ad : 'Belirtilmemiş'}</td>
+                        <td>${ogrenci.ucret} TL</td>
                         <td>
                             <button class="btn" onclick="openOgrenciModal('ogrenci-ekle-modal', ${ogrenci.id})">Düzenle</button>
                             <button class="btn btn-red" onclick="deleteOgrenci(${ogrenci.id})">Sil</button>
@@ -834,6 +843,7 @@
                 const ogrenciTelefon = document.getElementById('ogrenci-telefon').value;
                 const veliAdi = document.getElementById('veli-adi').value;
                 const bransId = document.getElementById('ogrenci-brans').value;
+                const ogrenciUcret = document.getElementById('ogrenci-ucret').value;
 
                 if (ogrenciId) {
                     const ogrenci = ogrenciler.find(o => o.id == ogrenciId);
@@ -842,6 +852,7 @@
                         ogrenci.telefon = ogrenciTelefon;
                         ogrenci.veli = veliAdi;
                         ogrenci.bransId = bransId;
+                        ogrenci.ucret = ogrenciUcret;
                     }
                 } else {
                     ogrenciler.push({
@@ -849,7 +860,8 @@
                         ad: ogrenciAdi,
                         telefon: ogrenciTelefon,
                         veli: veliAdi,
-                        bransId: bransId
+                        bransId: bransId,
+                        ucret: ogrenciUcret
                     });
                 }
                 saveData();
@@ -869,6 +881,7 @@
                         document.getElementById('ogrenci-telefon').value = ogrenci.telefon;
                         document.getElementById('veli-adi').value = ogrenci.veli;
                         document.getElementById('ogrenci-brans').value = ogrenci.bransId;
+                        document.getElementById('ogrenci-ucret').value = ogrenci.ucret;
                     }
                 }
                 openModal(modalId);
@@ -1110,6 +1123,20 @@
                     updateAllLists();
                 }
             }
+            
+            // Öğrenci seçimi değiştiğinde ücreti otomatik doldur
+            odemeOgrenciSelect.addEventListener('change', function() {
+                const selectedOgrenciId = this.value;
+                if (selectedOgrenciId) {
+                    const ogrenci = ogrenciler.find(o => o.id == selectedOgrenciId);
+                    if (ogrenci) {
+                        odemeTutariInput.value = ogrenci.ucret;
+                    }
+                } else {
+                    odemeTutariInput.value = '';
+                }
+            });
+
 
             odemeForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1140,6 +1167,7 @@
                 document.getElementById('odeme-modal-title').textContent = odemeId ? 'Ödeme Düzenle' : 'Ödeme Ekleme Formu';
                 document.getElementById('odeme-id').value = odemeId || '';
                 odemeForm.reset();
+                odemeTutariInput.value = '';
                 if (odemeId) {
                     const odeme = odemeler.find(o => o.id == odemeId);
                     if (odeme) {
@@ -1257,5 +1285,3 @@
     </script>
 </body>
 </html>
-
-
