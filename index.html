@@ -440,6 +440,162 @@
                     
                     <label for="ders-saat">Saat:</label><br>
                     <input type="time" id="ders-saat" name="ders-saat" required><br><br>
+                    
+                    <label for="ders-ucret">Ders Ücreti (TL):</label><br>
+                    <input type="number" id="ders-ucret" name="ders-ucret" readonly required><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="branslar" class="content page-content" style="display: none;">
+            <h2>Branşlar</h2>
+            <input type="text" id="brans-filtre" class="filter-input" placeholder="Branş adı ile filtrele...">
+            <button class="btn" onclick="openBransModal('brans-ekle-modal')">Yeni Kayıt</button>
+            <table id="brans-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Branş Adı</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="odemeler" class="content page-content" style="display: none;">
+            <h2>Ödemeler</h2>
+            <input type="text" id="odeme-filtre" class="filter-input" placeholder="Öğrenci Adı ile filtrele...">
+            <button class="btn" onclick="openOdemeModal('odeme-ekle-modal')">Yeni Ödeme Ekle</button>
+            <table id="odeme-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Öğrenci</th>
+                        <th>Branş</th>
+                        <th>Ödeme Tarihi</th>
+                        <th>Tutar</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="hakedisler" class="content page-content" style="display: none;">
+            <h2>Hakedişler</h2>
+            <input type="text" id="hakedis-filtre" class="filter-input" placeholder="Öğretmen Adı ile filtrele...">
+            <table id="hakedis-ogretmen-listesi-table">
+                <thead>
+                    <tr>
+                        <th>Öğretmen Adı</th>
+                        <th>Branş</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+            
+            <div id="hakedis-detay" style="display: none; margin-top: 20px;">
+                <h3><span id="hakedis-detay-ogretmen-adi"></span> Hakedişleri</h3>
+                <table id="hakedis-detay-table">
+                    <thead>
+                        <tr>
+                            <th>Öğrenci</th>
+                            <th>Ödeme Tarihi</th>
+                            <th>Hakediş Yüzdesi</th>
+                            <th>Hakediş Tutarı</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="ogrenci-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ogrenci-ekle-modal')">&times;</span>
+                <h3 id="ogrenci-modal-title">Öğrenci Kayıt Formu</h3>
+                <form id="ogrenci-form">
+                    <input type="hidden" id="ogrenci-id">
+                    <label for="ogrenci-adi">Adı Soyadı:</label><br>
+                    <input type="text" id="ogrenci-adi" name="ogrenci-adi" required><br><br>
+                    
+                    <label for="ogrenci-telefon">Telefon:</label><br>
+                    <input type="tel" id="ogrenci-telefon" name="ogrenci-telefon" required><br><br>
+
+                    <label for="veli-adi">Veli Adı Soyadı:</label><br>
+                    <input type="text" id="veli-adi" name="veli-adi" required><br><br>
+                    
+                    <label for="ogrenci-brans">Branşı:</label><br>
+                    <select id="ogrenci-brans" name="ogrenci-brans" required>
+                        </select><br><br>
+
+                    <label for="ogrenci-ucret">Ders Ücreti (TL):</label><br>
+                    <input type="number" id="ogrenci-ucret" name="ogrenci-ucret" required><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="ogretmen-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ogretmen-ekle-modal')">&times;</span>
+                <h3 id="ogretmen-modal-title">Öğretmen Kayıt Formu</h3>
+                <form id="ogretmen-form">
+                    <input type="hidden" id="ogretmen-id">
+                    <label for="ogretmen-adi">Adı Soyadı:</label><br>
+                    <input type="text" id="ogretmen-adi" name="ogretmen-adi" required><br><br>
+                    
+                    <label for="ogretmen-telefon">Telefon:</label><br>
+                    <input type="tel" id="ogretmen-telefon" name="ogretmen-telefon" required><br><br>
+                    
+                    <label for="ogretmen-brans">Branşı:</label><br>
+                    <select id="ogretmen-brans" name="ogretmen-brans" required>
+                        </select><br><br>
+
+                    <label for="hakedis-yuzdesi">Hakediş Yüzdesi (%):</label><br>
+                    <input type="number" id="hakedis-yuzdesi" name="hakedis-yuzdesi" min="0" max="100" required><br><br>
+
+                    <button type="submit" class="btn">Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="ders-ekle-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ders-ekle-modal')">&times;</span>
+                <h3 id="ders-modal-title">Ders Kayıt Formu</h3>
+                <form id="ders-form">
+                    <input type="hidden" id="ders-id">
+                    <label for="ders-ogrenci">Öğrenci Seçin:</label><br>
+                    <select id="ders-ogrenci" name="ders-ogrenci" required>
+                        </select><br><br>
+
+                    <label for="ders-brans">Branş Seçin:</label><br>
+                    <select id="ders-brans" name="ders-brans" required>
+                        </select><br><br>
+
+                    <label for="ders-ogretmen">Öğretmen Seçin:</label><br>
+                    <select id="ders-ogretmen" name="ders-ogretmen" required>
+                        </select><br><br>
+                    
+                    <label for="ders-tarih">Tarih:</label><br>
+                    <input type="date" id="ders-tarih" name="ders-tarih" required><br><br>
+                    
+                    <label for="ders-saat">Saat:</label><br>
+                    <input type="time" id="ders-saat" name="ders-saat" required><br><br>
+                    
+                    <label for="ders-ucret">Ders Ücreti (TL):</label><br>
+                    <input type="number" id="ders-ucret" name="ders-ucret" readonly required><br><br>
 
                     <button type="submit" class="btn">Kaydet</button>
                 </form>
@@ -531,6 +687,7 @@
             // Eklenen yeni elementler
             const ogrenciUcretInput = document.getElementById('ogrenci-ucret');
             const odemeTutariInput = document.getElementById('odeme-tutari');
+            const dersUcretInput = document.getElementById('ders-ucret');
 
             // Tablolar ve filtreler
             const anasayfaDersTable = document.getElementById('ders-listesi-table').querySelector('tbody');
@@ -1041,6 +1198,13 @@
                     `;
                 });
             }
+            
+            // Ders Ücretini öğrenci seçimiyle otomatik doldur
+            dersOgrenciSelect.addEventListener('change', function() {
+                const selectedOgrenciId = this.value;
+                const ogrenci = ogrenciler.find(o => o.id == selectedOgrenciId);
+                dersUcretInput.value = ogrenci ? ogrenci.ucret : '';
+            });
 
             dersForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1051,6 +1215,7 @@
                     ogretmenId: document.getElementById('ders-ogretmen').value,
                     tarih: document.getElementById('ders-tarih').value,
                     saat: document.getElementById('ders-saat').value,
+                    ucret: document.getElementById('ders-ucret').value,
                     durum: 'bekleniyor'
                 };
 
@@ -1062,6 +1227,31 @@
                 } else {
                     newDers.id = Date.now();
                     dersler.push(newDers);
+                    
+                    // Otomatik ödeme kaydı oluşturma
+                    const newOdeme = {
+                        id: Date.now(),
+                        lessonId: newDers.id,
+                        ogrenciId: newDers.ogrenciId,
+                        bransId: newDers.bransId,
+                        tarih: newDers.tarih,
+                        tutar: newDers.ucret,
+                        durum: 'ödenmedi'
+                    };
+                    odemeler.push(newOdeme);
+
+                    // Otomatik hakediş kaydı oluşturma
+                    const ogretmen = ogretmenler.find(o => o.id == newDers.ogretmenId);
+                    if (ogretmen) {
+                        const hakedisTutari = (parseFloat(newDers.ucret) * parseFloat(ogretmen.hakedisYuzdesi)) / 100;
+                        hakedisler.push({
+                            id: Date.now(),
+                            odemeId: newOdeme.id,
+                            ogretmenId: ogretmen.id,
+                            tutar: hakedisTutari,
+                            durum: 'ödenmedi'
+                        });
+                    }
                 }
                 saveData();
                 updateAllLists();
@@ -1081,6 +1271,7 @@
                         document.getElementById('ders-ogretmen').value = ders.ogretmenId;
                         document.getElementById('ders-tarih').value = ders.tarih;
                         document.getElementById('ders-saat').value = ders.saat;
+                        document.getElementById('ders-ucret').value = ders.ucret;
                     }
                 }
                 openModal(modalId);
@@ -1089,6 +1280,11 @@
             window.deleteDers = function(id) {
                 if(confirm('Dersi silmek istediğinize emin misiniz?')) {
                     dersler = dersler.filter(ders => ders.id !== id);
+                    odemeler = odemeler.filter(odeme => odeme.lessonId !== id);
+                    hakedisler = hakedisler.filter(hakedis => {
+                        const odeme = odemeler.find(o => o.id == hakedis.odemeId);
+                        return odeme ? odeme.lessonId !== id : false;
+                    });
                     saveData();
                     updateAllLists();
                 }
@@ -1228,25 +1424,15 @@
                 hakedisDetayTable.innerHTML = '';
 
                 // Hakediş hesabı için ders ve ödeme bilgilerini birleştiriyoruz
-                const odemelerFromDersler = odemeler.filter(odeme => {
-                    const ogrenci = ogrenciler.find(o => o.id == odeme.ogrenciId);
-                    const ders = dersler.find(d => 
-                        d.ogretmenId == ogretmenId && 
-                        d.ogrenciId == odeme.ogrenciId && 
-                        d.bransId == ogretmen.bransId 
-                    );
-                    return !!ders;
-                });
-                
+                const hakedislerForOgretmen = hakedisler.filter(h => h.ogretmenId == ogretmenId);
 
-                odemelerFromDersler.forEach(odeme => {
+                hakedislerForOgretmen.forEach(hakedis => {
+                    const odeme = odemeler.find(o => o.id == hakedis.odemeId);
+                    const ders = dersler.find(d => d.id == odeme.lessonId);
                     const ogrenci = ogrenciler.find(o => o.id == odeme.ogrenciId);
-                    const hakedisYuzdesi = ogretmen.hakedisYuzdesi / 100;
-                    const hakedisTutari = parseFloat(odeme.tutar) * hakedisYuzdesi;
                     
-                    const hakedisOdendiMi = hakedisler.some(h => h.odemeId === odeme.id);
-                    const odemeDurumu = hakedisOdendiMi ? 'Ödendi' : 'Ödenmedi';
-                    const odemeClass = hakedisOdendiMi ? 'paid-row' : 'unpaid-row';
+                    const odemeDurumu = hakedis.durum === 'ödendi' ? 'Ödendi' : 'Ödenmedi';
+                    const odemeClass = hakedis.durum === 'ödendi' ? 'paid-row' : 'unpaid-row';
 
                     const row = hakedisDetayTable.insertRow();
                     row.className = odemeClass;
@@ -1254,10 +1440,10 @@
                         <td>${ogrenci ? ogrenci.ad : 'Yok'}</td>
                         <td>${odeme.tarih}</td>
                         <td>%${ogretmen.hakedisYuzdesi}</td>
-                        <td>${hakedisTutari.toFixed(2)} TL</td>
+                        <td>${hakedis.tutar.toFixed(2)} TL</td>
                         <td>${odemeDurumu}</td>
                         <td>
-                            <button class="btn" onclick="odendiHakedis(${odeme.id}, ${ogretmenId})">${hakedisOdendiMi ? 'Geri Al' : 'Ödendi'}</button>
+                            <button class="btn" onclick="odendiHakedis(${hakedis.id}, ${ogretmenId})">${hakedis.durum === 'ödendi' ? 'Geri Al' : 'Ödendi'}</button>
                         </td>
                     `;
                 });
@@ -1265,23 +1451,14 @@
                 hakedisDetayDiv.dataset.ogretmenId = ogretmenId;
             }
 
-            window.odendiHakedis = function(odemeId, ogretmenId) {
-                const existingHakedisIndex = hakedisler.findIndex(h => h.odemeId === odemeId);
-                if (existingHakedisIndex > -1) {
-                    hakedisler.splice(existingHakedisIndex, 1);
-                    alert('Hakedişin ödemesi geri alındı.');
-                } else {
-                    hakedisler.push({
-                        id: Date.now(),
-                        odemeId: odemeId,
-                        ogretmenId: ogretmenId,
-                        odemeTarihi: new Date().toISOString().slice(0, 10)
-                    });
-                    alert('Hakediş ödendi olarak işaretlendi.');
+            window.odendiHakedis = function(hakedisId, ogretmenId) {
+                const hakedis = hakedisler.find(h => h.id === hakedisId);
+                if (hakedis) {
+                    hakedis.durum = hakedis.durum === 'ödendi' ? 'ödenmedi' : 'ödendi';
+                    saveData();
+                    updateAllLists();
+                    toggleHakedisDetay(ogretmenId);
                 }
-                saveData();
-                updateAllLists();
-                toggleHakedisDetay(ogretmenId);
             }
             
             hakedisFiltreInput.addEventListener('keyup', () => listeleOgretmenHakedis(hakedisFiltreInput.value));
